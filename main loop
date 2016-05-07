@@ -1,0 +1,63 @@
+%main loop-updates everything in the game 
+
+i=0;
+ss = get(0,'ScreenSize');
+fig = figure('Position',ss.*.5);
+axes=gca;
+movegui(fig,'center');
+snake=plot(0,0,'gs', 'MarkerSize',60, 'MarkerFaceColor', [0 1 0]);
+%axis off;
+boardsz=7;
+axis([-boardsz boardsz -boardsz boardsz]);
+hold on;
+dot=GenerateDot(boardsz);
+%create empty arrays to put the velocities in
+% xvelocity=[];
+% yvelocity=[];
+%lastkeypressed = 0;
+%fig.KeyPressFcn= @KeyboardControls;
+%initialize velocities of snake
+xvelocity=0;
+yvelocity=0;
+while i<1000
+    %lastkeypressed = 0;
+    %update keyboard control
+    %Keyboard(fig);
+%     pause(0.5)
+%     if lastkeypressed == 0:
+%        stuff
+%     else
+%        other stuff
+%     end
+    %set up velocities to pass to functions
+    key=0;
+    %collision=0;
+ %   disp(currentxvel);
+    [xvelocity, yvelocity, key, collision] = ChangeVelocity(fig, snake, dot, boardsz, currentxvel, currentyvel);
+    %if no key is pressed key == 0
+    if key == 0
+        %continue with same velocity if no key is pressed
+        KeepMoving(snake, dot, boardsz, currentxvel, currentyvel);
+    end
+    if key == 1
+        currentxvel=xvelocity;
+        currentyvel=yvelocity;
+    end
+    %if there was a collision, break from the loop
+    if collision == 1
+        disp('break');
+        break;
+    end
+    %update snake velocity based on keyboard control
+  %  disp(xvelocity);
+    %update snake position
+        %draw position
+        %if collide with wall-break
+        %if collide with self-break
+        %if eat dot-add legnth
+            %create new dot
+    %add point to counter
+    %pause
+    %pause(0.5);
+    i=i+1;
+end
