@@ -43,58 +43,24 @@ eat=0; %will be changed to one if snake eats
 %check if first link eats the dot
 %if moving horizontally-if passes dot and dot is between y coordinates
 if currentX(1) < dotx && firstX > dotx
-    if (firstY-0.5) <= doty && (firstY+0.5)>= doty
+    if (firstY-0.6) <= doty && (firstY+0.6)>= doty
         eat=1;
     end
 elseif currentX(1) > dotx && firstX < dotx
-    if (firstY-0.5) <= doty && (firstY+0.5)>= doty
+    if (firstY-0.6) <= doty && (firstY+0.6)>= doty
         eat=1;
     end
     %if moving vertically-if passes and dot is between x coordinates
 elseif currentY(1) < doty && firstY > doty
-    if (firstX-0.5)<= dotx && (firstX+0.5)>= dotx
+    if (firstX-0.6)<= dotx && (firstX+0.6)>= dotx
         eat = 1;
     end
 elseif currentY(1) > doty && firstY < doty
-    if (firstX-0.5)<= dotx && (firstX+0.5)>= dotx
+    if (firstX-0.6)<= dotx && (firstX+0.6)>= dotx
         eat = 1;
     end
 end
-% for i=1:nlinks
-%     if currentX(i) < dotx && newX(i) > dotx
-%         if currentY(i) == roundY
-%             disp('eat');
-%             eat= 1;
-%             %UpdateDot();
-%             break;
-%         end
-% 
-%     elseif currentX(i) > dotx && newX(i) < dotx
-%         if currentY(i) == roundY
-%             disp('eat');
-%             eat=1;
-%             %UpdateDot();                  
-%             break;
-%         end
-% 
-%     elseif currentY(i) < doty && newY(i) > doty
-%         if currentX(i) == roundX
-%             disp('eat');
-%             eat=1;
-%             %UpdateDot();
-%             break;
-%         end
-% 
-%     elseif currentY(i) > doty && newY(i) < doty
-%         if currentX(i) == roundX
-%             disp('eat');
-%             eat=1;
-%             %UpdateDot();
-%             break;
-%         end
-% 
-%     end
-% end
+
 %if eat variable is unchanged shorten the snake and plot it
 if eat == 0;
     %make position arrays the same length as the number of links
@@ -105,7 +71,7 @@ if eat == 0;
     snake.YData=newY;
 elseif eat == 1
     %if dot is eaten create new dot
-    UpdateDot(boardsz, dot);
+    UpdateDot(boardsz, dot, newX, newY);
     %lengthen snake
     snake.XData=newX;
     snake.YData=newY;
