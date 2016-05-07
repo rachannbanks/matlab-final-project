@@ -4,6 +4,7 @@ function [newxvelocity, newyvelocity, key, collision] = ChangeVelocity(fig, snak
 %collision returns one if there is a collsion, zero otherwise
 %create figure
 %hi
+%hi again
 fig.KeyPressFcn= @KeyboardControls;
 %callback function
 newxvelocity=0;
