@@ -1,4 +1,4 @@
-function [collision, score] = CollisionCheck(boardsz, snake, newX, newY, dot,score)
+function [collision, score] = CollisionCheck(boardsz, snake, newX, newY, dot,score, scorekeeper)
 %this function checks for any of the following three instances
 %1-if the snake hits a wall
 %2-if the snake hits itself
@@ -46,8 +46,10 @@ eat=0; %will be changed to one if snake eats
 if (firstX-0.6)<=dotx && (firstX+0.6)>= dotx
     if (firstY-0.6) <= doty && (firstY+0.6) >= doty
         eat=1;
+        %add score
         score=score+10;
-        KeepScore(score);
+        %update displayed score
+        set(scorekeeper, 'String', score);
     end
 end
 
