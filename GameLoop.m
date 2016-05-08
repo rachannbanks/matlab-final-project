@@ -10,7 +10,7 @@ fig = figure('Position',ss.*.5);
 % axes=gca;
 % axes.Color= 'blue';
 movegui(fig,'center');
-snake=plot(0,0,'Color', [0 0.5 0.5], 'Marker', 's',...
+snake=plot(0,0,'Color', [0 0.5 0.5], 'Marker', 'o',...
     'MarkerSize',50, 'MarkerFaceColor', [0 0.5 0.5]);
 axes=gca;
 axes.XColor= 'none';
@@ -24,7 +24,10 @@ hold on;
 dot=GenerateDot(boardsz);
 %set up score
 score=0;
-scorekeeper= KeepScore(score);
+%scorekeeper= KeepScore(score);
+load('HighScore.mat');
+[scorekeeper, HighScoreDisp] = KeepScore(score, highscore);
+%HighScoreDisp= KeepHighScore(highscore);
 %create empty arrays to put the velocities in
 % xvelocity=[];
 % yvelocity=[];
@@ -53,7 +56,7 @@ while true
     %after changing values of newx and newy velocities, give to updatesnake
     [newX, newY]=UpdateSnake(snake, newxvelocity, newyvelocity);
     %after updatesnake call collision check
-    [collision, score]=CollisionCheck(boardsz, snake, newX, newY, dot, score, scorekeeper);
+    [collision, score, lost]=CollisionCheck(boardsz, snake, newX, newY, dot, score, scorekeeper);
    
     %collision check calls update dot and lengthens snake as needed
     %collision==1 if a collision with wall or self happens
@@ -75,3 +78,12 @@ while true
     %pause(0.5);
     %i=i+1;
 end
+
+%check if score is larger than current high score
+if score > highscore
+    highscore=score;
+    save('HighScore.mat','highscore','-append');
+    str= 'New high score!';
+    set(lost, 'String', str);
+end
+    

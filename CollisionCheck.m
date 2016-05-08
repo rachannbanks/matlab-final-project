@@ -1,4 +1,4 @@
-function [collision, score] = CollisionCheck(boardsz, snake, newX, newY, dot,score, scorekeeper)
+function [collision, score, lost] = CollisionCheck(boardsz, snake, newX, newY, dot,score, scorekeeper)
 %this function checks for any of the following three instances
 %1-if the snake hits a wall
 %2-if the snake hits itself
@@ -15,28 +15,44 @@ doty=dot.YData;
 roundX=round(dotx);
 roundY=round(doty);
 %1-check if snake hits a wall
+lose=0; %will be changed to one or two if you lose
+lost=0;
 if any(newX == -boardsz) || any(newX == boardsz)
     disp('end game');
     collision=1;
+    lose=1;
+    %make text box saying you lost
+    lost = GameOver(lose);
     return;
 elseif any(newY == -boardsz) || any(newY == boardsz)
     disp('end game');
     collision=1;
+    lose=1;
+    %make text bot saying you lost
+    lost = GameOver(lose);
     return;
 end
+
 %2-check if snake hits itself-only need to check first link
 firstX=newX(1);
 firstY=newY(1);
+
 %check if any of the links have the same coordinates as the new first link
 if nlinks > 1
     for i=2:nlinks
         if newX(i) == firstX
             if newY(i) == firstY
                 collision=1;
+                lose=2;
+                %make text box saying you lost
+                lost = GameOver(lose);
             end
         end
     end
 end
+
+%if you lost
+
 %3-check if snake eats dot
 %initialize eat variable
 eat=0; %will be changed to one if snake eats
